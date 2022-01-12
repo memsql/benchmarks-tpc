@@ -1,8 +1,8 @@
+-- Sample TPC-H queries
+
 use tpch;
 
-/* Note q11 uses the scale factor 30,000 constant; see the tpc-h benchmark
- * for instructions on how to adjust this.
- */
+-- Note: q11 uses a constant depending on the scale factor, adjust it for your scale factor.
 
 /* q1 */
 select
@@ -322,7 +322,7 @@ group by
     ps_partkey having
         sum(ps_supplycost * ps_availqty) > (
             select
-                sum(ps_supplycost * ps_availqty) * 0.0001 / 30000 /*[0.0001 / SF]*/
+                sum(ps_supplycost * ps_availqty) * 0.0001 / (30000 /* PUT THE SF HERE (size in GB) */)
             from
                 partsupp,
                 supplier,

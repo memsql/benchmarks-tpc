@@ -1,4 +1,3 @@
-DROP DATABASE IF EXISTS tpcds;
 CREATE DATABASE tpcds;
 USE tpcds;
 
@@ -26,8 +25,9 @@ CREATE TABLE store_sales (
     ss_net_paid decimal(7,2),
     ss_net_paid_inc_tax decimal(7,2),
     ss_net_profit decimal(7,2),
-    KEY (ss_item_sk, ss_ticket_number) /*!90619 using clustered columnar */,
-    /*!90618 shard */ key(ss_item_sk)
+    UNIQUE KEY pk (ss_item_sk, ss_ticket_number) USING HASH,
+    KEY (ss_item_sk, ss_ticket_number) using clustered columnstore,
+    shard key(ss_item_sk)
 );
 
 CREATE TABLE store_returns (
@@ -51,8 +51,9 @@ CREATE TABLE store_returns (
     sr_reversed_charge decimal(7,2),
     sr_store_credit decimal(7,2),
     sr_net_loss decimal(7,2),
-    KEY (sr_item_sk, sr_ticket_number) /*!90619 using clustered columnar */,
-    /*!90618 shard */ key(sr_item_sk)
+    UNIQUE KEY pk (sr_item_sk, sr_ticket_number) USING HASH,
+    KEY (sr_item_sk, sr_ticket_number) using clustered columnstore,
+    shard key(sr_item_sk)
 );
 
 CREATE TABLE catalog_sales (
@@ -90,8 +91,9 @@ CREATE TABLE catalog_sales (
     cs_net_paid_inc_ship decimal(7,2),
     cs_net_paid_inc_ship_tax decimal(7,2),
     cs_net_profit decimal(7,2),
-    KEY (cs_item_sk, cs_order_number) /*!90619 using clustered columnar */,
-    /*!90618 shard */ key(cs_item_sk)
+    UNIQUE KEY pk (cs_item_sk, cs_order_number) USING HASH,
+    KEY (cs_item_sk, cs_order_number) using clustered columnstore,
+    shard key(cs_item_sk)
 );
 
 CREATE TABLE catalog_returns (
@@ -122,8 +124,9 @@ CREATE TABLE catalog_returns (
     cr_reversed_charge decimal(7,2),
     cr_store_credit decimal(7,2),
     cr_net_loss decimal(7,2),
-    KEY (cr_item_sk, cr_order_number) /*!90619 using clustered columnar */,
-    /*!90618 shard */ key(cr_item_sk)
+    UNIQUE KEY pk (cr_item_sk, cr_order_number) USING HASH,
+    KEY (cr_item_sk, cr_order_number) using clustered columnstore,
+    shard key(cr_item_sk)
 );
 
 CREATE TABLE web_sales (
@@ -161,8 +164,9 @@ CREATE TABLE web_sales (
     ws_net_paid_inc_ship decimal(7,2),
     ws_net_paid_inc_ship_tax decimal(7,2),
     ws_net_profit decimal(7,2),
-    KEY (ws_item_sk, ws_order_number) /*!90619 using clustered columnar */,
-    /*!90618 shard */ key(ws_item_sk)
+    UNIQUE KEY pk (ws_item_sk, ws_order_number) USING HASH,
+    KEY (ws_item_sk, ws_order_number) using clustered columnstore,
+    shard key(ws_item_sk)
 );
 
 CREATE TABLE web_returns (
@@ -190,8 +194,9 @@ CREATE TABLE web_returns (
     wr_reversed_charge decimal(7,2),
     wr_account_credit decimal(7,2),
     wr_net_loss decimal(7,2),
-    KEY (wr_item_sk, wr_order_number) /*!90619 using clustered columnar */,
-    /*!90618 shard */ key(wr_item_sk)
+    UNIQUE KEY pk (wr_item_sk, wr_order_number) USING HASH,
+    KEY (wr_item_sk, wr_order_number) using clustered columnstore,
+    shard key(wr_item_sk)
 );
 
 CREATE TABLE inventory (
@@ -199,8 +204,9 @@ CREATE TABLE inventory (
     inv_item_sk bigint(11),
     inv_warehouse_sk bigint(11),
     inv_quantity_on_hand bigint(11),
-    KEY (inv_item_sk,inv_date_sk,  inv_warehouse_sk) /*!90619 using clustered columnar */,
-    /*!90618 shard */ key(inv_item_sk)
+    UNIQUE KEY pk (inv_date_sk, inv_item_sk, inv_warehouse_sk) USING HASH,
+    KEY (inv_item_sk,inv_date_sk,  inv_warehouse_sk) using clustered columnstore,
+    shard key(inv_item_sk)
 );
 
 CREATE TABLE store (
@@ -228,12 +234,13 @@ CREATE TABLE store (
     s_suite_number varchar(10),
     s_city varchar(60),
     s_county varchar(30),
-    s_state varchar(2),
+    s_state char(2),
     s_zip varchar(10),
     s_country varchar(20),
     s_gmt_offset decimal(5,2),
     s_tax_percentage decimal(5,2),
-    /*!90618 shard */ KEY (s_store_sk) /*!90619 using clustered columnar */
+    UNIQUE KEY pk (s_store_sk) USING HASH,
+    shard KEY (s_store_sk) using clustered columnstore
 );
 
 CREATE TABLE call_center (
@@ -263,12 +270,13 @@ CREATE TABLE call_center (
     cc_suite_number varchar(10),
     cc_city varchar(60),
     cc_county varchar(30),
-    cc_state varchar(2),
+    cc_state char(2),
     cc_zip varchar(10),
     cc_country varchar(20),
     cc_gmt_offset decimal(5,2),
     cc_tax_percentage decimal(5,2),
-    /*!90618 shard */ KEY (cc_call_center_sk) /*!90619 using clustered columnar */
+    UNIQUE KEY pk (cc_call_center_sk) USING HASH,
+    shard KEY (cc_call_center_sk) using clustered columnstore
 );
 
 CREATE TABLE catalog_page (
@@ -281,7 +289,8 @@ CREATE TABLE catalog_page (
     cp_catalog_page_number bigint(11),
     cp_description varchar(100),
     cp_type varchar(100),
-    /*!90618 shard */ KEY (cp_catalog_page_sk) /*!90619 using clustered columnar */
+    UNIQUE KEY pk (cp_catalog_page_sk) USING HASH,
+    shard KEY (cp_catalog_page_sk) using clustered columnstore
 );
 
 CREATE TABLE web_site (
@@ -306,12 +315,13 @@ CREATE TABLE web_site (
     web_suite_number varchar(10),
     web_city varchar(60),
     web_county varchar(30),
-    web_state varchar(2),
+    web_state char(2),
     web_zip varchar(10),
     web_country varchar(20),
     web_gmt_offset decimal(5,2),
     web_tax_percentage decimal(5,2),
-    /*!90618 shard */ KEY (web_site_sk) /*!90619 using clustered columnar */
+    UNIQUE KEY pk (web_site_sk) USING HASH,
+    shard KEY (web_site_sk) using clustered columnstore
 );
 
 CREATE TABLE web_page (
@@ -321,7 +331,7 @@ CREATE TABLE web_page (
     wp_rec_end_date date,
     wp_creation_date_sk bigint(11),
     wp_access_date_sk bigint(11),
-    wp_autogen_flag varchar(1),
+    wp_autogen_flag char(1),
     wp_customer_sk bigint(11),
     wp_url varchar(100),
     wp_type varchar(50),
@@ -329,7 +339,8 @@ CREATE TABLE web_page (
     wp_link_count bigint(11),
     wp_image_count bigint(11),
     wp_max_ad_count bigint(11),
-    /*!90618 shard */ KEY (wp_web_page_sk) /*!90619 using clustered columnar */
+    UNIQUE KEY pk (wp_web_page_sk) USING HASH,
+    shard KEY (wp_web_page_sk) using clustered columnstore
 );
 
 CREATE TABLE warehouse (
@@ -343,11 +354,12 @@ CREATE TABLE warehouse (
     w_suite_number varchar(10),
     w_city varchar(60),
     w_county varchar(30),
-    w_state varchar(2),
+    w_state char(2),
     w_zip varchar(10),
     w_country varchar(20),
     w_gmt_offset decimal(5,2),
-    /*!90618 shard */ KEY (w_warehouse_sk) /*!90619 using clustered columnar */
+    UNIQUE KEY pk (w_warehouse_sk) USING HASH,
+    shard KEY (w_warehouse_sk) using clustered columnstore
 );
 
 CREATE TABLE customer (
@@ -361,7 +373,7 @@ CREATE TABLE customer (
     c_salutation varchar(10),
     c_first_name varchar(20),
     c_last_name varchar(30),
-    c_preferred_cust_flag varchar(1),
+    c_preferred_cust_flag char(1),
     c_birth_day bigint(11),
     c_birth_month bigint(11),
     c_birth_year bigint(11),
@@ -369,7 +381,8 @@ CREATE TABLE customer (
     c_login varchar(13),
     c_email_address varchar(50),
     c_last_review_date_sk bigint(11),
-    /*!90618 shard */ KEY (c_customer_sk) /*!90619 using clustered columnar */
+    UNIQUE KEY pk (c_customer_sk) USING HASH,
+    shard KEY (c_customer_sk) using clustered columnstore
 );
 
 CREATE TABLE customer_address (
@@ -381,25 +394,27 @@ CREATE TABLE customer_address (
     ca_suite_number varchar(10),
     ca_city varchar(60),
     ca_county varchar(30),
-    ca_state varchar(2),
+    ca_state char(2),
     ca_zip varchar(10),
     ca_country varchar(20),
     ca_gmt_offset decimal(5,2),
     ca_location_type varchar(20),
-    /*!90618 shard */ KEY (ca_address_sk) /*!90619 using clustered columnar */
+    UNIQUE KEY pk (ca_address_sk) USING HASH,
+    shard KEY (ca_address_sk) using clustered columnstore
 );
 
 CREATE TABLE customer_demographics (
     cd_demo_sk bigint(11),
-    cd_gender varchar(1),
-    cd_marital_status varchar(1),
+    cd_gender char(1),
+    cd_marital_status char(1),
     cd_education_status varchar(20),
     cd_purchase_estimate bigint(11),
     cd_credit_rating varchar(10),
     cd_dep_count bigint(11),
     cd_dep_employed_count bigint(11),
     cd_dep_college_count bigint(11),
-    /*!90618 shard */ KEY (cd_demo_sk) /*!90619 using clustered columnar */
+    UNIQUE KEY pk (cd_demo_sk) USING HASH,
+    shard KEY (cd_demo_sk) using clustered columnstore
 );
 
 CREATE TABLE date_dim (
@@ -419,19 +434,20 @@ CREATE TABLE date_dim (
     d_fy_week_seq bigint(11),
     d_day_name varchar(9),
     d_quarter_name varchar(6),
-    d_holiday varchar(1),
-    d_weekend varchar(1),
-    d_following_holiday varchar(1),
+    d_holiday char(1),
+    d_weekend char(1),
+    d_following_holiday char(1),
     d_first_dom bigint(11),
     d_last_dom bigint(11),
     d_same_day_ly bigint(11),
     d_same_day_lq bigint(11),
-    d_current_day varchar(1),
-    d_current_week varchar(1),
-    d_current_month varchar(1),
-    d_current_quarter varchar(1),
-    d_current_year varchar(1),
-    /*!90618 shard */ KEY (d_date_sk) /*!90619 using clustered columnar */
+    d_current_day char(1),
+    d_current_week char(1),
+    d_current_month char(1),
+    d_current_quarter char(1),
+    d_current_year char(1),
+    UNIQUE KEY pk (d_date_sk) USING HASH,
+    shard KEY (d_date_sk) using clustered columnstore
 );
 
 CREATE TABLE household_demographics (
@@ -440,7 +456,8 @@ CREATE TABLE household_demographics (
     hd_buy_potential varchar(15),
     hd_dep_count bigint(11),
     hd_vehicle_count bigint(11),
-    /*!90618 shard */ KEY (hd_demo_sk) /*!90619 using clustered columnar */
+    UNIQUE KEY pk (hd_demo_sk) USING HASH,
+    shard KEY (hd_demo_sk) using clustered columnstore
 );
 
 CREATE TABLE item (
@@ -466,14 +483,16 @@ CREATE TABLE item (
     i_container varchar(10),
     i_manager_id bigint(11),
     i_product_name varchar(50),
-    /*!90618 shard */ KEY (i_item_sk) /*!90619 using clustered columnar */
+    UNIQUE KEY pk (i_item_sk) USING HASH,
+    shard KEY (i_item_sk) using clustered columnstore
 );
 
 CREATE TABLE income_band (
     ib_income_band_sk bigint(11),
     ib_lower_bound bigint(11),
     ib_upper_bound bigint(11),
-    /*!90618 shard */ KEY (ib_income_band_sk) /*!90619 using clustered columnar */
+    UNIQUE KEY pk (ib_income_band_sk) USING HASH,
+    shard KEY (ib_income_band_sk) using clustered columnstore
 );
 
 CREATE TABLE promotion (
@@ -485,25 +504,27 @@ CREATE TABLE promotion (
     p_cost decimal(15,2),
     p_response_target bigint(11),
     p_promo_name varchar(50),
-    p_channel_dmail varchar(1),
-    p_channel_email varchar(1),
-    p_channel_catalog varchar(1),
-    p_channel_tv varchar(1),
-    p_channel_radio varchar(1),
-    p_channel_press varchar(1),
-    p_channel_event varchar(1),
-    p_channel_demo varchar(1),
+    p_channel_dmail char(1),
+    p_channel_email char(1),
+    p_channel_catalog char(1),
+    p_channel_tv char(1),
+    p_channel_radio char(1),
+    p_channel_press char(1),
+    p_channel_event char(1),
+    p_channel_demo char(1),
     p_channel_details varchar(100),
     p_purpose varchar(15),
-    p_discount_active varchar(1),
-    /*!90618 shard */ KEY (p_promo_sk) /*!90619 using clustered columnar */
+    p_discount_active char(1),
+    UNIQUE KEY pk (p_promo_sk) USING HASH,
+    shard KEY (p_promo_sk) using clustered columnstore
 );
 
 CREATE TABLE reason (
     r_reason_sk bigint(11),
     r_reason_id varchar(16) NOT NULL,
     r_reason_desc varchar(100),
-    /*!90618 shard */ KEY (r_reason_sk) /*!90619 using clustered columnar */
+    UNIQUE KEY pk (r_reason_sk) USING HASH,
+    shard KEY (r_reason_sk) using clustered columnstore
 );
 
 CREATE TABLE ship_mode (
@@ -513,7 +534,8 @@ CREATE TABLE ship_mode (
     sm_code varchar(10),
     sm_carrier varchar(20),
     sm_contract varchar(20),
-    /*!90618 shard */ KEY (sm_ship_mode_sk) /*!90619 using clustered columnar */
+    UNIQUE KEY pk (sm_ship_mode_sk) USING HASH,
+    shard KEY (sm_ship_mode_sk) using clustered columnstore
 );
 
 CREATE TABLE time_dim (
@@ -523,9 +545,10 @@ CREATE TABLE time_dim (
     t_hour bigint(11),
     t_minute bigint(11),
     t_second bigint(11),
-    t_am_pm varchar(2),
+    t_am_pm char(2),
     t_shift varchar(20),
     t_sub_shift varchar(20),
     t_meal_time varchar(20),
-    /*!90618 shard */ KEY (t_time_sk) /*!90619 using clustered columnar */
+    UNIQUE KEY pk (t_time_sk) USING HASH,
+    shard KEY (t_time_sk) using clustered columnstore
 );

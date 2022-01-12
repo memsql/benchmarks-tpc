@@ -1,6 +1,5 @@
 -- tpch schema, all sharded columnstore tables
 
-DROP DATABASE IF EXISTS tpch;
 CREATE DATABASE tpch;
 USE tpch;
 
@@ -13,8 +12,8 @@ CREATE TABLE `customer` (
   `c_acctbal` decimal(15,2) NOT NULL,
   `c_mktsegment` char(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `c_comment` varchar(117) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  /*!90621 UNIQUE KEY pk (`c_custkey`) UNENFORCED RELY, */
-  /*!90618 SHARD */ KEY (`c_custkey`) /*!90619 USING CLUSTERED COLUMNSTORE */
+  UNIQUE KEY pk (`c_custkey`) USING HASH,
+  SHARD KEY (`c_custkey`) USING CLUSTERED COLUMNSTORE
 );
 
 CREATE TABLE `lineitem` (
@@ -34,8 +33,8 @@ CREATE TABLE `lineitem` (
   `l_shipinstruct` char(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `l_shipmode` char(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `l_comment` varchar(44) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  /*!90621 UNIQUE KEY pk (`l_orderkey`, `l_linenumber`) UNENFORCED RELY, */
-  /*!90618 SHARD */ KEY (`l_orderkey`) /*!90619 USING CLUSTERED COLUMNSTORE */
+  UNIQUE KEY pk (`l_orderkey`, `l_linenumber`) USING HASH,
+  SHARD KEY (`l_orderkey`) USING CLUSTERED COLUMNSTORE
 );
 
 CREATE TABLE `nation` (
@@ -43,8 +42,8 @@ CREATE TABLE `nation` (
   `n_name` char(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `n_regionkey` int(11) NOT NULL,
   `n_comment` varchar(152) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  /*!90621 UNIQUE KEY pk (`n_nationkey`) UNENFORCED RELY, */
-  /*!90618 SHARD */ KEY (`n_nationkey`) /*!90619 USING CLUSTERED COLUMNSTORE */
+  UNIQUE KEY pk (`n_nationkey`) USING HASH,
+  SHARD KEY (`n_nationkey`) USING CLUSTERED COLUMNSTORE
 );
 
 CREATE TABLE `orders` (
@@ -57,8 +56,8 @@ CREATE TABLE `orders` (
   `o_clerk` char(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `o_shippriority` int(11) NOT NULL,
   `o_comment` varchar(79) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  /*!90621 UNIQUE KEY pk (`o_orderkey`) UNENFORCED RELY, */
-  /*!90618 SHARD */ KEY (`o_orderkey`) /*!90619 USING CLUSTERED COLUMNSTORE */
+  UNIQUE KEY pk (`o_orderkey`) USING HASH,
+  SHARD KEY (`o_orderkey`) USING CLUSTERED COLUMNSTORE
 );
 
 CREATE TABLE `part` (
@@ -71,8 +70,8 @@ CREATE TABLE `part` (
   `p_container` char(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `p_retailprice` decimal(15,2) NOT NULL,
   `p_comment` varchar(23) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  /*!90621 UNIQUE KEY pk (`p_partkey`) UNENFORCED RELY, */
-  /*!90618 SHARD */ KEY (`p_partkey`) /*!90619 USING CLUSTERED COLUMNSTORE */
+  UNIQUE KEY pk (`p_partkey`) USING HASH,
+  SHARD KEY (`p_partkey`) USING CLUSTERED COLUMNSTORE
 );
 
 CREATE TABLE `partsupp` (
@@ -81,17 +80,17 @@ CREATE TABLE `partsupp` (
   `ps_availqty` int(11) NOT NULL,
   `ps_supplycost` decimal(15,2) NOT NULL,
   `ps_comment` varchar(199) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  /*!90621 UNIQUE KEY pk (`ps_partkey`,`ps_suppkey`) UNENFORCED RELY, */
-  /*!90618 SHARD KEY(`ps_partkey`),*/
-  KEY (`ps_partkey`,`ps_suppkey`) /*!90619 USING CLUSTERED COLUMNSTORE */
+  UNIQUE KEY pk (`ps_partkey`,`ps_suppkey`) USING HASH,
+  SHARD KEY(`ps_partkey`),
+  KEY (`ps_partkey`,`ps_suppkey`) USING CLUSTERED COLUMNSTORE
 );
 
 CREATE TABLE `region` (
   `r_regionkey` int(11) NOT NULL,
   `r_name` char(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `r_comment` varchar(152) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  /*!90621 UNIQUE KEY pk (`r_regionkey`) UNENFORCED RELY, */
-  /*!90618 SHARD */ KEY (`r_regionkey`) /*!90619 USING CLUSTERED COLUMNSTORE */
+  UNIQUE KEY pk (`r_regionkey`) USING HASH,
+  SHARD KEY (`r_regionkey`) USING CLUSTERED COLUMNSTORE
 );
 
 CREATE TABLE `supplier` (
@@ -102,8 +101,8 @@ CREATE TABLE `supplier` (
   `s_phone` char(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `s_acctbal` decimal(15,2) NOT NULL,
   `s_comment` varchar(101) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  /*!90621 UNIQUE KEY pk (`s_suppkey`) UNENFORCED RELY, */
-  /*!90618 SHARD */ KEY (`s_suppkey`) /*!90619 USING CLUSTERED COLUMNSTORE */
+  UNIQUE KEY pk (`s_suppkey`) USING HASH,
+  SHARD KEY (`s_suppkey`) USING CLUSTERED COLUMNSTORE
 );
 
 
