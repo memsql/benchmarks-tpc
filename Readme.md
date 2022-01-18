@@ -1,6 +1,6 @@
 # SingleStore TPC benchmarking materials
 
-To find the blogpost about our results, go to https://www.memsql.com/blog.
+You can find the blogpost about our results at https://www.singlestore.com/blog/tpc-benchmarking-results/
 
 Note: This repository contains benchmarks derived from the TPC benchmarks. Our benchmarks use the schema, data, and queries derived from the TPC benchmarks; however, they are not official TPC benchmarks.
 
@@ -13,6 +13,7 @@ git clone git@github.com:memsql/benchmarks-tpc.git
 
 Prerequisites:
 - Generate the benchmark dataset using the TPC scripts at http://tpc.org/tpc_documents_current_versions/current_specifications5.asp - dbgen for TPC-H or dsdgen for TPC-DS. Upload the data to your cloud storage e.g. AWS S3. We recommend compressing the data.
+  - If you just want to run a quick experiment on a small scale cluster and dataset, then you can skip this step and use our built-in sample TPC-H 10GB dataset for our smallest cluster size (S-00). Follow the same steps as below, but instead of running `create-table.sql` and `load.sql` click Tutorials > Try with Sample Data > Benchmark Dataset - TPC-H. Warning: currently this is specifically optimized to load quickly to our smallest clusters (S-00) as a quick demo, it is not intended for benchmarking on larger clusters (in the future we will be working on changing that to make it more flexible).
 
 Creating a SingleStore cluster (you can also see https://www.singlestore.com/blog/how-to-get-started-with-singlestore/ for a guide with additional examples):
 - Go to https://www.singlestore.com/managed-service-trial/ to start a free trial. Or, if you already have an account, go to https://portal.singlestore.com/ to log in.
@@ -35,7 +36,7 @@ Running the benchmark:
 
 # TPC-C
 
-Our TPC-C test code uses a forked repo from github.com/percona-lab/tpcc-mysql, with our changes found at github.com/memsql/tpcc-mysql; check that for more information about running tpcc.
+For information about running TPC-C, see our repo at https://github.com/memsql/tpcc-mysql (forked from Percona's MySQL driver with changes to run on SingleStore).
 
 ------------------------------
 
