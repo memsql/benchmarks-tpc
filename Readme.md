@@ -33,6 +33,7 @@ Running the benchmark:
   - We ran `queries.sql` once to measure the cold query runtimes, then repeated `queries.sql` three more times to measure warm query runtimes.
   - The first run will be slower than subsequent runs because SingleStore optimizes and compiles queries for future invocations.
   - TPC-H and TPC-DS have templatized queries with randomly generated parameter values. We didn’t find much variation with different parameters, so we used a fixed set of parameters for the ease of testing and tracking performance across time. We include the query text with an example set of parameter values. You can generate multiple instances of the queries with different random parameter values using the TPC tools (qgen or dsqgen).
+  - Note that the parameter values depend on the scale factor (i.e. the dataset size). The sample queries we've included are for the 10TB scale factor. To generate appropriate queries for a different scale factor, use the TPC tools (qgen or dsqgen).
 
 # TPC-C
 
