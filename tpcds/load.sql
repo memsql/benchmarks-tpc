@@ -10,7 +10,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `call_center`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS catalog_page_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/catalog_page."
@@ -20,7 +20,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `catalog_page`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS catalog_returns_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/catalog_returns."
@@ -30,7 +30,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `catalog_returns`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS catalog_sales_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/catalog_sales."
@@ -40,7 +40,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `catalog_sales`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS customer_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/customer."
@@ -50,7 +50,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `customer`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS customer_address_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/customer_address."
@@ -60,7 +60,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `customer_address`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS customer_demographics_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/customer_demographics."
@@ -70,7 +70,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `customer_demographics`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS date_dim_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/date_dim."
@@ -80,7 +80,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `date_dim`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS household_demographics_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/household_demographics."
@@ -90,7 +90,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `household_demographics`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS income_band_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/income_band."
@@ -100,7 +100,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `income_band`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS inventory_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/inventory."
@@ -110,7 +110,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `inventory`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS item_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/item."
@@ -120,7 +120,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `item`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS promotion_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/promotion."
@@ -130,7 +130,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `promotion`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS reason_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/reason."
@@ -140,7 +140,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `reason`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS ship_mode_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/ship_mode."
@@ -150,7 +150,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `ship_mode`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS store_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/store."
@@ -160,7 +160,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `store`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS store_returns_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/store_returns."
@@ -170,7 +170,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `store_returns`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS store_sales_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/store_sales."
@@ -180,7 +180,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `store_sales`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS time_dim_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/time_dim."
@@ -190,7 +190,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `time_dim`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS warehouse_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/warehouse."
@@ -200,7 +200,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `warehouse`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS web_page_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/web_page."
@@ -210,7 +210,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `web_page`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS web_returns_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/web_returns."
@@ -220,7 +220,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `web_returns`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS web_sales_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/web_sales."
@@ -230,7 +230,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `web_sales`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 CREATE PIPELINE IF NOT EXISTS web_site_pipeline AS
 LOAD DATA S3 "yourbucket/tpcds/web_site."
@@ -240,7 +240,7 @@ SKIP DUPLICATE KEY ERRORS
 INTO TABLE `web_site`
 FIELDS TERMINATED BY '|'
 ESCAPED BY '\\'
-LINES TERMINATED BY '|\n';
+LINES TERMINATED BY '|\r\n';
 
 start pipeline call_center_pipeline foreground;
 start pipeline catalog_page_pipeline foreground;
